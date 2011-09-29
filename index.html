@@ -45,24 +45,78 @@
 
 <body>
 
- 	<div data-role="page"> 
+ 	<div data-role="page" class="type-interior" id="schedule"> 
 
 		<div data-role="header"> 
-			<h1>Single page</h1> 
+			<h1>1 DevDay</h1> 
 		</div><!-- /header --> 
 
 		<div data-role="content">	
-			<p>This is a single page boilerplate template that you can copy to build you first jQuery Mobile page. Each link or form from here will pull a new page in via Ajax to support the animated page transitions.</p>		
-			<p>Just view the source and copy the code to get started. All the CSS and JS is linked to the jQuery CDN versions so this is super easy to set up. Remember to include a meta viewport tag in the head to set the zoom level.</p> 
-			<p>This template is standard HTML document with a single "page" container inside, unlike a <a href="multipage-template.html">multi-page template</a> that has multiple pages within it. We strongly recommend building your site or app as a series of separate pages like this because it's cleaner, more lightweight and works better without JavaScript.</p> 
+			<div class="content-primary">
+
+        <h1>1DevDayDetroit</h1>
+
+        <ul data-role="listview" data-inset="true">
+          <li data-role="list-divider">Friday, November 4, 2011 <span class="ui-li-count">8:00pm</span></li>
+          <li>
+            <a href="index.html">
+              <h3>Stephen Weber</h3>
+              <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+              <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+              <p class="ui-li-aside"><strong>ROOM A</strong></p>
+            </a>
+            <ul>
+              <li>
+                <div data-role="collapsible">
+                <h3>speaker</h3>
+                <p>this top of the range widget is availablein the 76 different colors. it comes with a leather carry case and a large cup.</p>
+                </div>
+<div data-role="collapsible">
+                <h3>speaker</h3>
+                <p>this top of the range widget is availablein the 76 different colors. it comes with a leather carry case and a large cup.</p>
+                </div>                
+              </li>
+            </ul>
+          </li>
+
+  <li>
+            <a href="index.html">
+              <h3>Stephen Weber</h3>
+              <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+              <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+              <p class="ui-li-aside"><strong>ROOM A</strong></p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
 		</div><!-- /content --> 
 
-		<div data-role="footer"> 
-			<h4>Footer content</h4> 
-		</div><!-- /footer --> 
-
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#schedule" class="ui-btn-active ui-state-persist">Schedule</a></li>
+          <li><a href="#maps">Maps</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
 	</div><!-- /page -->
 
+
+<div data-role="page" class="type-interior" id="maps"> 
+
+  <h1>I'm a map!</h1>
+
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#schedule" class="ui-btn-active ui-state-persist">Schedule</a></li>
+          <li><a href="#maps">Maps</a></li>
+        </ul>
+      </div><!-- /navbar -->
+    </div><!-- /footer -->
+
+</div>
 
   <!-- JavaScript at the bottom for fast page loading -->
 
