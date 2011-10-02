@@ -58,34 +58,8 @@
 
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Friday, November 4, 2011 <span class="ui-li-count">8:00pm</span></li>
-          <li>
-            <a href="index.html">
-              <h3>Stephen Weber</h3>
-              <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-              <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-              <p class="ui-li-aside"><strong>ROOM A</strong></p>
-            </a>
-            <ul>
-              <li>
-                <div data-role="collapsible">
-                <h3>speaker</h3>
-                <p>this top of the range widget is availablein the 76 different colors. it comes with a leather carry case and a large cup.</p>
-                </div>
-<div data-role="collapsible">
-                <h3>speaker</h3>
-                <p>this top of the range widget is availablein the 76 different colors. it comes with a leather carry case and a large cup.</p>
-                </div>                
-              </li>
+          
             </ul>
-          </li>
-
-  <li>
-            <a href="index.html">
-              <h3>Stephen Weber</h3>
-              <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-              <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-              <p class="ui-li-aside"><strong>ROOM A</strong></p>
-            </a>
           </li>
 
         </ul>
@@ -118,37 +92,82 @@
 
 </div>
 
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-<link rel="stylesheet" href="css/jquery.mobile-1.0b3.min.css" /> 
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+<link rel="stylesheet" href="css/jquery.mobile-1.0rc1.min.css" /> 
 <script src="js/libs/jquery-1.6.3.min.js"></script> 
-<script src="js/libs/jquery.mobile-1.0b3.min.js"></script>
-  
+<script src="js/libs/jquery.mobile-1.0rc1.min.js"></script>
+  <script type="text/javascript" src="js/libs/handlebars.1.0.0.beta.3.js"></script>
+
   <!-- scripts concatenated and minified via ant build script -->
   <script src="js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
   
+<script id="entry-template" type="text/x-handlebars-template">
+
+  {{#each this}}
+  <li>
+    <a href="index.html">
+      <h3>{{name}}</h3>
+      <p><strong>Youve been invited to a meeting at Filament Group in Boston, MA</strong></p>
+      <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+      <p class="ui-li-aside"><strong>ROOM A</strong></p>
+    </a>
+    <ul>
+      {{#each this.sessions}}
+      <li>
+        <div data-role="collapsible">
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+        </div> 
+        </li>
+      {{/each}}
+    </ul>
+  </li>             
+  {{/each}}
+
+</script>
+
   <script>
-    // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-    MBP.scaleFix();
-    
-    // Media Queries Polyfill https://github.com/shichuan/mobile-html5-boilerplate/wiki/Media-Queries-Polyfill
-    yepnope({
-      test : Modernizr.mq('(min-width)'),
-      nope : ['js/libs/respond.min.js']
-    });
-  </script>
-  
-  <!-- Debugger - remove for production -->
-  <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
-  
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-    s.parentNode.insertBefore(g,s)}(document,"script"));
+      // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
+      MBP.scaleFix();
+      
+      // Media Queries Polyfill https://github.com/shichuan/mobile-html5-boilerplate/wiki/Media-Queries-Polyfill
+      yepnope({
+        test : Modernizr.mq('(min-width)'),
+        nope : ['js/libs/respond.min.js']
+      });
+
+          //$("#schedule").live('pagebeforechange' ,function(event){
+          // $("#schedule").live( 'pagechange',function(event){
+
+          // $(document).bind('pagechange', function( e, data ) {
+          //     alert('asljkdfjaslkf');
+          //     $('h1').html('ajslkdfjlasdjlflsjflldsajfljksjl');
+          // });
+
+
+           //$('#schedule').bind('pagebeforechange', function( e, data ) {
+          $('#schedule').live('pageinit' ,function(event){
+            $.getJSON('http://devdayapi.heroku.com/speak', function(data) {
+
+              console.log(data);
+
+              var source = $("#entry-template").html();
+              var template = Handlebars.compile(source);
+              var context = {title: "My New Post", body: "This is my first post!"}
+              var htmlContent = template(data);
+              //alert('beforechange');
+              $(":jqmData(role='listview')").append(htmlContent).listview("refresh");
+
+                // $.each(data, function(key, val) {
+                  //$(":jqmData(role='listview')").append('<li><a href=\'#\'><h3>hi</h3></a></li>');
+                    //items.push('<li id="' + key + '">' + val + '</li>');
+                // });
+                
+              //$(":jqmData(role='listview')").listview()
+          //});
+          });
+       });
   </script>
 
 </body>
